@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product management</title>
+        <link rel="stylesheet" href="/css/bootstrap.css">
+        <script src="/js/bootstrap.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body class="container">
+        <h1>Product Management</h1>
+
+        <div class="d-flex flex-row-reverse">
+            <a href="/new" type="button" class="btn btn-success">Create New
+                Product</a>
+        </div>
+        <form action method="get">
+            <div class="input-group search">
+                <input value="<%= q %>" class="form-control" name="q"
+                    type="text">
+                <button class="btn btn-success">Search</button>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Detail</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach((pro)=>{ %>
+                <tr>
+                    <th scope="row"><%= pro.id %></th>
+                    <td>
+                        <img style="width: 100px;" src="<%= pro.image %>" alt>
+                    </td>
+                    <td><%= pro.name %></td>
+                    <td><%= pro.detail %></td>
+                    <td>
+                        <div class="d-flex">
+                            <a href="/detail/<%= pro.id %>" type="button"
+                                class="btn btn-success btn-sm">Detail</a>
+                            <a href="/edit/<%= pro.id %>"
+                                class="btn btn-warning btn-sm">Edit</a>
+                            <form action="/delete?_method=DELETE"
+                                method="post">
+                                <input type="hidden" name="id"
+                                    value="<%= pro.id%>">
+                                <button
+                                    class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <% }); %>
+
+            </tbody>
+        </table>
+        <nav class="d-flex justify-content-center"
+            aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <% [...Array(totalPage).keys()].forEach((item)=>{ %>
+                <% let active = page == (item + 1) ? "active": "" %>
+                <li class="page-item <%= active %>"><a class="page-link"
+                        href="/?page=<%= item + 1 %>"><%= item + 1 %></a></li>
+                <% }) %>
+                <% let nextUrl = (+page >= totalPage) ? "":`/?page=${+page + 1
+                }`
+                %>
+                <li class="page-item">
+                    <a class="page-link" href="<%= nextUrl %>"
+                        aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </body>
+</html>

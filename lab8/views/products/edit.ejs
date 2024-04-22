@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product management</title>
+        <link rel="stylesheet" href="/css/bootstrap.css">
+        <script src="/js/bootstrap.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body class="container">
+        <h1>Form Edit Product</h1>
+        <form action="/update?_method=PUT" method="post"
+            enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<%= product[0].id %>">
+            Name:
+            <input value="<%= product[0].name %>" type="text" name="name"
+                class="form-control">
+            Detail:
+            <input value="<%= product[0].detail %>" type="text" name="detail"
+                class="form-control">
+            Image:
+            <img style="width: 200px;" src="/<%= product[0].image %>">
+            <input type="file" name="image" class="form-control">
+            <button class="btn btn-success">Submit</button>
+        </form>
+    </body>
+</html>
